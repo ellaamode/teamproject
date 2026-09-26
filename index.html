@@ -101,6 +101,12 @@
 
   code{font-family:ui-monospace, monospace; font-size:0.9em; background:var(--source); color:var(--brass); padding:1px 5px; border-radius:4px;}
 
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+
   @media (max-width:640px){
     .toolbar select, .toolbar input[type=text]{flex:1 1 100%;}
     .hero h1{font-size:30px;}
@@ -342,6 +348,20 @@ function runSearch(){
   }
 }
 runSearch();
+
+// 스크롤 등장 애니메이션
+document.querySelectorAll('section .wrap > *, section .wrap-wide > *').forEach(function(el){
+  el.classList.add('reveal');
+});
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 </script>
 
 </body>
