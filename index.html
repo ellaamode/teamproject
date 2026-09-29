@@ -247,7 +247,7 @@
       <tr><td>국민참여입법센터 API</td><td>입법예고</td><td>공식 Open API</td></tr>
       <tr><td>금융규제·법령해석포털</td><td>법령해석, 비조치의견</td><td>REST 호출(공식 API 아님)</td></tr>
     </table>
-    <p>법제처 API와 국민참여입법센터 API는 인증키 기반의 정식 Open API입니다. 금융규제·법령해석포털은 공식 API가 없지만, 개발자도구 네트워크 탭으로 실제 요청을 확인한 결과 <code>selectReplyCasePastReplyList.do</code>(목록)와 <code>LawreqDetail.do</code>(상세)가 이미 구조화된 JSON·HTML을 반환하는 내부 엔드포인트라는 걸 확인했습니다. 전체 4,361건이 등록되어 있다는 것도 이 과정에서 확인했습니다.</p>
+    <p>법제처 API와 국민참여입법센터 API는 인증키 기반의 정식 Open API입니다. 금융규제·법령해석포털은 공식 API가 없지만, 개발자도구 네트워크 탭으로 실제 요청을 확인한 결과 <code>selectReplyCasePastReplyList.do</code>(목록)와 <code>LawreqDetail.do</code>(상세)가 이미 구조화된 JSON·HTML을 반환하는 내부 엔드포인트라는 걸 확인했습니다. </p>
     <p>화면을 다시 해석하는 크롤링 대신, 서버가 원래 반환하도록 만들어진 값을 그대로 받는 REST 호출을 택해 무료 배포 환경에서도 안정적으로 실행됩니다.</p>
   </div>
 </section>
