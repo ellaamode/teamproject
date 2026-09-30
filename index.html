@@ -53,6 +53,9 @@
     font-size:12.5px; color:var(--brass); background:var(--source);
     border-radius:999px; padding:5px 12px; white-space:nowrap;
   }
+  .toc-nav{display:flex; flex-wrap:wrap; column-gap:22px; row-gap:8px; margin-top:24px;}
+  .toc-nav a{font-size:14px; color:var(--slate); text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;}
+  .toc-nav a:hover{color:var(--brass); border-bottom-color:var(--brass-soft);}
 
   h2.section-title{font-size:26px; margin-bottom:20px;}
   h3.sub-title{font-size:18px; margin:28px 0 10px;}
@@ -144,29 +147,34 @@
 
 <div class="wrap">
   <div class="hero">
-    <p class="slate" style="font-size:18px; text-align:right; margin:0 0 10px;">Team 8</p>
-    <h1>금융규제통합조회 <span class="slate" style="font-size:22px; font-family:'IBM Plex Sans KR',sans-serif; font-weight:400;">(가칭)</span></h1>
-    <p class="sub">금융관계법령 규제정보 조회 서비스</p>
-    <div class="tag-row">
-      <span class="tag">법제처 API</span>
-      <span class="tag">국민참여입법센터 API</span>
-      <span class="tag">PostgreSQL · Supabase</span>
-      <span class="tag">OpenSearch</span>
-      <span class="tag">FastAPI · Render</span>
-      <span class="tag">React · Vercel</span>
+    <div style="text-align:right; margin-bottom:10px;">
+      <p class="slate" style="font-size:18px; margin:0;">Team 8</p>
+      <p class="slate" style="font-size:12.5px; margin:2px 0 0;">법제처 · 금융위원회 · 금융감독원 데이터 기반</p>
     </div>
+    <h1>금융규제통합조회 <span class="slate" style="font-size:22px; font-family:'IBM Plex Sans KR',sans-serif; font-weight:400;">(가칭)</span></h1>
+    <p class="sub">금융관계법령 규제정보 통합조회 서비스</p>
+    <nav class="toc-nav">
+      <a href="#sec-what">정의</a>
+      <a href="#sec-why">배경</a>
+      <a href="#sec-who">팀</a>
+      <a href="#sec-features">기능</a>
+      <a href="#sec-data">데이터</a>
+      <a href="#sec-arch">아키텍처</a>
+      <a href="#sec-structure">구조</a>
+      <a href="#sec-worry">고민</a>
+    </nav>
   </div>
   <div class="rule-double"></div>
 </div>
 
-<section>
+<section id="sec-what">
   <div class="wrap">
     <h2 class="section-title">1. 무엇을 만드는가?</h2>
     <p>금융규제통합조회는 입법예고, 법령개정, 법령해석, 비조치의견을 한 곳에 모아 업무 태그와 키워드로 찾아볼 수 있게 하는 서비스입니다. 금융회사 업무담당자가 스스로 최신 규제 현황을 검토하는 단계를 지원합니다.</p>
   </div>
 </section>
 
-<section style="padding-top:0;">
+<section id="sec-why" style="padding-top:0;">
   <div class="wrap">
     <h2 class="section-title">2. 왜 필요한가?</h2>
     <p>금융회사 현업에서 기술적인 이슈를 제외하면 가장 큰 제약은 금융규제입니다. 법령의 개정과 최신 해석 사례가 여러 곳에 흩어져 있고, 금융당국이 제공하는 페이지도 찾아보기 번거롭습니다.</p>
@@ -174,9 +182,22 @@
   </div>
 </section>
 
-<section style="padding-top:0;">
+<section id="sec-who" style="padding-top:0;">
   <div class="wrap">
-    <h2 class="section-title">3. 어떤 기능을 제공하는가?</h2>
+    <h2 class="section-title">3. 누가 만드는가?</h2>
+    <div class="tag-row">
+      <span class="tag">양정모</span>
+      <span class="tag">양지선</span>
+      <span class="tag">이수정</span>
+      <span class="tag">김한룡</span>
+      <span class="tag">최은정</span>
+    </div>
+  </div>
+</section>
+
+<section id="sec-features" style="padding-top:0;">
+  <div class="wrap">
+    <h2 class="section-title">4. 어떤 기능을 제공하는가?</h2>
     <p>입법예고, 법령개정, 법령해석, 비조치의견을 한 곳에 모읍니다. 업무와 관련된 태그를 선택하면 미리 매핑해 둔 항목을 전부 모아 보여주고, 별도로 검색어를 입력하면 태그·법령과 무관하게 전체에서 찾아줍니다.</p>
 
     <div class="card-grid">
@@ -237,28 +258,27 @@
   </div>
 </section>
 
-
-<section style="padding-top:0;">
+<section id="sec-data" style="padding-top:0;">
   <div class="wrap">
-    <h2 class="section-title">4. 어디서 가져오는가?</h2>
+    <h2 class="section-title">5. 어디서 가져오는가?</h2>
     <table class="source-table">
       <tr><th>원천</th><th>가져오는 것</th><th>방식</th></tr>
       <tr><td>법제처 국가법령정보 API</td><td>조문, 개정이력</td><td>공식 Open API</td></tr>
       <tr><td>국민참여입법센터 API</td><td>입법예고</td><td>공식 Open API</td></tr>
       <tr><td>금융규제·법령해석포털</td><td>법령해석, 비조치의견</td><td>REST 호출(공식 API 아님)</td></tr>
     </table>
-    <p>법제처 API와 국민참여입법센터 API는 인증키 기반의 정식 Open API입니다. 금융규제·법령해석포털은 공식 API가 없지만, 개발자도구 네트워크 탭으로 실제 요청을 확인한 결과 <code>selectReplyCasePastReplyList.do</code>(목록)와 <code>LawreqDetail.do</code>(상세)가 이미 구조화된 JSON·HTML을 반환하는 내부 엔드포인트라는 걸 확인했습니다. </p>
+    <p>법제처 API와 국민참여입법센터 API는 인증키 기반의 정식 Open API입니다. 금융규제·법령해석포털은 공식 API가 없지만, 개발자도구 네트워크 탭으로 실제 요청을 확인한 결과 <code>selectReplyCasePastReplyList.do</code>(목록)와 <code>LawreqDetail.do</code>(상세)가 이미 구조화된 JSON·HTML을 반환하는 내부 엔드포인트라는 걸 확인했습니다.</p>
     <p>화면을 다시 해석하는 크롤링 대신, 서버가 원래 반환하도록 만들어진 값을 그대로 받는 REST 호출을 택해 무료 배포 환경에서도 안정적으로 실행됩니다.</p>
   </div>
 </section>
 
-<section style="padding-top:0;">
+<section id="sec-arch" style="padding-top:0;">
   <div class="wrap">
-    <h2 class="section-title">5. 서비스 아키텍처</h2>
+    <h2 class="section-title">6. 서비스 아키텍처</h2>
     <div class="diagram-wrap">
-      <svg width="100%" viewBox="0 0 900 594" role="img">
+      <svg width="100%" viewBox="0 0 900 484" role="img">
         <title>금융규제통합조회 구조도</title>
-        <desc>법제처 API, 입법예고 API, 법령해석포털이 PostgreSQL로 모이고, OpenSearch에 색인되어 FastAPI를 거쳐 화면에 표시되는 흐름</desc>
+        <desc>법제처 API, 입법예고 API, 법령해석포털이 PostgreSQL로 모이고, FastAPI를 거쳐 화면에 표시되는 흐름</desc>
         <defs>
           <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M2 1L8 5L2 9" fill="none" stroke="var(--slate)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -285,35 +305,29 @@
         <g>
           <rect x="270" y="164" width="360" height="70" rx="8" fill="var(--node)" stroke="var(--node-line)" stroke-width="1"/>
           <text x="450" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">PostgreSQL (Supabase)</text>
-          <text x="450" y="212" text-anchor="middle" font-size="12.5" fill="var(--slate)">원본 저장 · 사전 매핑표 기준 태깅</text>
+          <text x="450" y="212" text-anchor="middle" font-size="12.5" fill="var(--slate)">원본 저장 · 태깅 · 검색</text>
         </g>
         <line x1="450" y1="234" x2="450" y2="274" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw)"/>
         <g>
           <rect x="270" y="274" width="360" height="70" rx="8" fill="var(--node)" stroke="var(--node-line)" stroke-width="1"/>
-          <text x="450" y="302" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">OpenSearch (AWS)</text>
-          <text x="450" y="322" text-anchor="middle" font-size="12.5" fill="var(--slate)">색인 · 태그 필터 + 키워드 검색</text>
+          <text x="450" y="302" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">FastAPI (Render)</text>
+          <text x="450" y="322" text-anchor="middle" font-size="12.5" fill="var(--slate)">조회 API 제공</text>
         </g>
         <line x1="450" y1="344" x2="450" y2="384" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw)"/>
         <g>
-          <rect x="270" y="384" width="360" height="70" rx="8" fill="var(--node)" stroke="var(--node-line)" stroke-width="1"/>
-          <text x="450" y="412" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">FastAPI (Render)</text>
-          <text x="450" y="432" text-anchor="middle" font-size="12.5" fill="var(--slate)">검색 API 제공</text>
-        </g>
-        <line x1="450" y1="454" x2="450" y2="494" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw)"/>
-        <g>
-          <rect x="300" y="494" width="300" height="60" rx="8" fill="var(--node)" stroke="var(--node-line)" stroke-width="1"/>
-          <text x="450" y="520" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">React (Vercel)</text>
-          <text x="450" y="540" text-anchor="middle" font-size="12.5" fill="var(--slate)">태그 화면</text>
+          <rect x="300" y="384" width="300" height="60" rx="8" fill="var(--node)" stroke="var(--node-line)" stroke-width="1"/>
+          <text x="450" y="410" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">React (Vercel)</text>
+          <text x="450" y="430" text-anchor="middle" font-size="12.5" fill="var(--slate)">태그 화면</text>
         </g>
       </svg>
     </div>
-    <p class="mock-caption" style="margin-top:16px;">수집한 데이터는 PostgreSQL에 원본 그대로 저장하고, 사전 매핑표로 태깅한 뒤 OpenSearch에 색인합니다. FastAPI가 이 색인을 조회해 API로 내려주고, React 화면이 태그·검색 결과를 보여줍니다. 프론트·백엔드·DB는 무료 요금제로, OpenSearch만 AWS 프리티어 조건에 맞춰 최소 구성으로 운영합니다.</p>
+    <p class="mock-caption" style="margin-top:16px;">수집한 데이터는 PostgreSQL에 원본으로 저장하고, 사전 매핑표로 태깅합니다. FastAPI가 이 데이터를 조회·검색해 API로 내려주고, React 화면이 태그·검색 결과를 보여줍니다. 프론트·백엔드·DB 모두 무료 요금제로 운영합니다.</p>
   </div>
 </section>
 
-<section style="padding-top:0;">
+<section id="sec-structure" style="padding-top:0;">
   <div class="wrap">
-    <h2 class="section-title">6. 태그를 중심으로 연결됩니다</h2>
+    <h2 class="section-title">7. 태그를 중심으로 연결됩니다</h2>
     <p>법령 조문, 입법예고, 법령해석·비조치의견이 각각 태그에 연결되고, 태그는 키워드 사전과 연결됩니다.</p>
     <div class="diagram-wrap">
 <pre class="mermaid">
@@ -325,27 +339,82 @@ erDiagram
 </pre>
     </div>
     <p class="mock-caption" style="margin-top:16px;">LAWS는 법령·조문, BILLS는 입법예고, INTERPRETATIONS는 법령해석·비조치의견을 뜻합니다. 태그는 스스로 상위·하위 분류를 가질 수 있고, 이 분류 기준이 되는 것이 키워드 사전입니다.</p>
-  </div>
-</section>
 
-<section style="padding-top:0;">
-  <div class="wrap">
-    <h2 class="section-title">7. 고민중인 부분은?</h2>
-    <p>법령·규정과 태그를 수기로 매핑해야 하는데, 이 작업을 더 효율적으로 할 수 있는 방법이 없을지 고민하고 있습니다.</p>
-    <p>이 태그를 사용자의 편의에 맞춰 화면을 개인화할 수 있는 방법도 함께 고민하고 있습니다.</p>
-  </div>
-</section>
+    <h3 class="sub-title">예시로 보면</h3>
+    <p>"외환 송금 한도 관련 법령해석"이라는 사례 하나가 태그에 연결되는 과정입니다.</p>
+    <ol class="steps">
+      <li>이 사례는 금융규제·법령해석포털에서 가져온 해석례라, <code>INTERPRETATIONS</code>에 저장됩니다.</li>
+      <li>"외환" 태그의 키워드 사전(<code>KEYWORDS</code>)에는 <code>외환</code>, <code>외화</code>, <code>외국환</code> 세 단어가 등록돼 있습니다.</li>
+      <li>이 사례 제목·본문에 "외환"이라는 단어가 들어있으니, <code>INTERPRETATIONS</code>와 "외환" <code>TAGS</code>가 연결됩니다.</li>
+      <li>법령 조문(<code>LAWS</code>)이나 입법예고(<code>BILLS</code>)도 같은 방식으로, 각자의 텍스트에 등록된 키워드가 있으면 태그에 연결됩니다.</li>
+    </ol>
+    <p>같은 항목이 태그 두 개에 걸리는 경우도 있습니다. 자본시장법의 "장외파생상품 외환 헤지 관련 규정 개정"은 본문에 "외환"과 "파생상품"이 함께 등장해서, "외환" 태그와 "자본시장" 태그 양쪽에 다 연결됩니다. 하나의 조문이 여러 태그를, 하나의 태그가 여러 조문을 가질 수 있는 게 바로 이런 경우 때문이고, 그래서 <code>LAWS</code>·<code>BILLS</code>·<code>INTERPRETATIONS</code>가 각각 <code>TAGS</code>와 다대다(N:M) 관계로 설계됩니다.</p>
 
-<section style="padding-top:0;">
-  <div class="wrap">
-    <h2 class="section-title">8. 8조의 구성원</h2>
-    <div class="tag-row">
-      <span class="tag">양정모</span>
-      <span class="tag">양지선</span>
-      <span class="tag">이수정</span>
-      <span class="tag">김한룡</span>
-      <span class="tag">최은정</span>
+    <div class="diagram-wrap">
+      <svg width="100%" viewBox="0 0 900 364" role="img">
+        <title>"외환" 태그 연결 예시</title>
+        <desc>입법예고·조문·법령해석 각 항목이 외환 태그로 모이고, 자본시장법 조문 하나는 외환과 자본시장 두 태그에 동시에 연결되며, 외환 태그는 키워드 사전과 연결되는 예시</desc>
+        <defs>
+          <marker id="arw2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="var(--slate)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <g>
+          <rect x="20" y="30" width="200" height="64" rx="8" fill="var(--source)" stroke="var(--source-line)" stroke-width="1"/>
+          <text x="120" y="50" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">입법예고</text>
+          <text x="120" y="70" text-anchor="middle" font-size="12" fill="var(--slate)">외환 자유화 확대 개정안</text>
+        </g>
+        <g>
+          <rect x="240" y="30" width="200" height="64" rx="8" fill="var(--source)" stroke="var(--source-line)" stroke-width="1"/>
+          <text x="340" y="50" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">조문</text>
+          <text x="340" y="70" text-anchor="middle" font-size="12" fill="var(--slate)">외국환거래법 제17조</text>
+        </g>
+        <g>
+          <rect x="460" y="30" width="200" height="64" rx="8" fill="var(--source)" stroke="var(--source-line)" stroke-width="1"/>
+          <text x="560" y="50" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">법령해석</text>
+          <text x="560" y="70" text-anchor="middle" font-size="12" fill="var(--slate)">외환 송금 한도 관련</text>
+        </g>
+        <g>
+          <rect x="680" y="30" width="200" height="64" rx="8" fill="var(--source)" stroke="var(--source-line)" stroke-width="1"/>
+          <text x="780" y="50" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">조문</text>
+          <text x="780" y="70" text-anchor="middle" font-size="12" fill="var(--slate)">자본시장법 외환헤지 조항</text>
+        </g>
+
+        <path d="M120,94 L120,118 L280,118 L280,164" fill="none" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw2)"/>
+        <line x1="340" y1="94" x2="340" y2="164" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw2)"/>
+        <path d="M560,94 L560,118 L400,118 L400,164" fill="none" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw2)"/>
+        <path d="M780,94 L780,145 L415,145 L415,164" fill="none" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw2)"/>
+        <path d="M780,94 L780,130 L700,130 L700,164" fill="none" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw2)"/>
+
+        <g>
+          <rect x="260" y="164" width="160" height="44" rx="8" fill="var(--node)" stroke="var(--node-line)" stroke-width="1"/>
+          <text x="340" y="186" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">외환</text>
+        </g>
+        <g>
+          <rect x="620" y="164" width="160" height="44" rx="8" fill="var(--node)" stroke="var(--node-line)" stroke-width="1"/>
+          <text x="700" y="186" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">자본시장</text>
+        </g>
+
+        <line x1="340" y1="208" x2="340" y2="268" stroke="var(--slate)" stroke-width="1.2" marker-end="url(#arw2)"/>
+
+        <g>
+          <rect x="230" y="268" width="220" height="56" rx="8" fill="var(--node)" stroke="var(--node-line)" stroke-width="1"/>
+          <text x="340" y="288" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">키워드 사전</text>
+          <text x="340" y="306" text-anchor="middle" font-size="12" fill="var(--slate)">외환 · 외화 · 외국환</text>
+        </g>
+      </svg>
     </div>
+    <p class="mock-caption" style="margin-top:16px;">자본시장법 조문 하나만 화살표가 두 개입니다 — 본문에 "외환"과 "파생상품"이 함께 있어서 "외환" 태그와 "자본시장" 태그 양쪽에 다 연결되기 때문입니다. 나머지 세 항목은 "외환" 키워드 사전(외환·외화·외국환)에 걸려 "외환" 태그 하나로만 모입니다.</p>
+  </div>
+</section>
+
+<section id="sec-worry" style="padding-top:0;">
+  <div class="wrap">
+    <h2 class="section-title">8. 고민중인 부분은?</h2>
+    <p>법마다 표현이 조금씩 달라서(예: 외환·외화·외국환), 조문 하나하나를 사람이 읽고 태그를 붙여야 합니다. 다룰 법이 늘어날수록 이 작업량이 커지는데, 법령의 정의조항을 기준으로 1차 사전을 만들거나 LLM으로 키워드 후보를 제안받아 사람이 검토·확정하는 방식으로 작업량을 줄이는 방법을 고민하고 있습니다.</p>
+    <p>이 태그를 사용자의 편의에 맞춰 화면을 개인화할 수 있는 방법도 함께 고민하고 있습니다.</p>
+    <p>행정지도까지 함께 보여주고 싶은데, 금융위원회 행정지도와 금융감독원 행정지도가 서로 다른 사이트에 있고 수집 방식도 다릅니다. 두 기관의 데이터를 어떻게 하나의 태그 체계 안에 자연스럽게 통합할지 고민하고 있습니다.</p>
   </div>
 </section>
 
